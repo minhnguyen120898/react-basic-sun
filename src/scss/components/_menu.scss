@@ -1,0 +1,57 @@
+.menu {
+    &__clear {
+      button {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid $color-primary;
+        border-radius: 5px;
+        background-color: transparent;
+        cursor: pointer;
+      }
+    }
+  
+    &__result {
+      margin-top: 15px;
+    }
+  
+    &__title-1 {
+      margin: 0 0 8px;
+      color: $color-title-1;
+      font-size: $font-size-title-1;
+    }
+  
+    &__title-2 {
+      margin: 10px 0;
+      font-weight: 700;
+      font-size: $font-size-title-2;
+    }
+  
+    hr {
+      margin: 15px 0;
+    }
+  
+    ul {
+      li {
+        margin-top: 10px;
+        font-size: $font-size-menu-list;
+        list-style-type: none;
+        cursor: pointer;
+  
+        .active {
+          font-weight: bold;
+        }
+  
+        input {
+          margin-right: 5px;
+        }
+  
+        ul {
+          margin-left: 15px;
+        }
+      }
+    }
+  
+    &__text {
+      font-size: $font-size-menu-list;
+    }
+}

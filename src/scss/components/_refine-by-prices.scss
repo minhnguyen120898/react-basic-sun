@@ -1,0 +1,33 @@
+.refine-by-prices {
+    ul {
+      .active {
+        font-weight: bold;
+      }
+    }
+  
+    form {
+      display: flex;
+      margin-top: 15px;
+  
+      label {
+        span {
+          font-size: $font-size-prices-input;
+        }
+  
+        input {
+          width: 50px;
+          padding: 2px 0;
+          padding-left: 5px;
+          border-radius: 2px;
+          margin: 0 2px;
+          border: solid 1px $color-black;
+          font-size: $font-size-prices-input;
+        }
+      }
+  
+      button {
+        padding: 4px;
+        border-radius: 50%;
+      }
+    }
+}
