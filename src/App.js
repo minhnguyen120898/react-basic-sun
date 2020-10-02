@@ -9,7 +9,7 @@ function App() {
   const [valueSearch,setValueSearch] = useState("");
   const [valueTitle,setValueTitle] = useState("");
   const [valueType, setValueType] = useState("");
-  const [valueByType, setValueByType] = useState("");
+  const [valueByType, setValueByType] = useState([]);
 	const [valueBrand, setValueBrand] = useState([]);
 	const [valueRate, setValueRate] = useState("");
 	const [priceFrom, setPriceFrom] = useState("");
@@ -33,7 +33,7 @@ function App() {
   }
 
 	const handleBrandSelect = (value) => {
-		setValueBrand(value);
+    setValueBrand(value);
 	};
 
 	const handleRateSelect = (value) => {
@@ -47,6 +47,7 @@ function App() {
 
 	const handleClearFilter = () => {
     setValueType("");
+    setValueTitle("");
     setValueByType("");
 		setValueBrand([]);
 		setValueRate("");

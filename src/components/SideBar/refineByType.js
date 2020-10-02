@@ -13,7 +13,7 @@ function RefineByType(props) {
     const newChecked = [...valueByType];
 
     const currentType = newChecked.indexOf(type);
-
+    console.log(currentType);
     if (currentType === -1) {
       newChecked.push(type);
     } else {

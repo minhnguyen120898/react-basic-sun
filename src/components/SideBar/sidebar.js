@@ -30,12 +30,21 @@ function Sidebar(props) {
   const [valueIdType, setvalueIdType] = useState("");
 
   useEffect(() => {
-    let url = "http://localhost:3333/types";
-    fetch(url)
-      .then((res) => res.json())
-      .then((result) => {
-        setTypes(result);
-      });
+ 
+    async function fetchTypeData(){  
+      try {
+        let url = "http://localhost:3333/types";
+        const response = await fetch(url);
+        const responseJSON = await response.json();
+
+        setTypes(responseJSON);  
+
+      } catch (error) {
+        console.log("Fail to fetch:"+ error.message);
+      }       
+    }
+
+    fetchTypeData();
   }, []);
 
   const handleIdTitle = (id) => {

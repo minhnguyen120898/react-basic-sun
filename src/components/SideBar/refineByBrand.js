@@ -12,15 +12,14 @@ function RefineByBrand(props) {
 
   const handleCheck = (brand) => {
     const newChecked = [...valueByBrand];
-
+    
     const currentType = newChecked.indexOf(brand);
-
+  
     if (currentType === -1) {
       newChecked.push(brand);
     } else {
       newChecked.splice(currentType, 1);
     }
-
     handleByBrand(newChecked);
   };
 

@@ -13,10 +13,11 @@ function ShowResultFor(props) {
 
   const toggle = (id, title, subs) => {
     let index = types.findIndex((x) => x.id === id);
+ 
     if (index !== -1) {
       handleIdTitle(id);
       handleTitle(title);
-      handleType((subs = ""));
+      handleType(subs="");
     }
   };
 

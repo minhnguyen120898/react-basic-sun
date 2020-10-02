@@ -8,54 +8,47 @@ function Main(props) {
     const {valueTitle,valueType,valueByType,valueBrand,valueRate,priceFrom,priceTo,valueSearch,onHandleProducts}= props;
 
     const [products, setProducts] = useState([]);
-    const [pagination,setPagination] = useState({
-        _page: 1,
-        _limit : 8,
-    });
+    const [currentPage,setcurrentPage] = useState(1);
+    const [productsPerPage,setProductsPerPage] = useState(8);
 
-
-
-    const [filters,setFilters] = useState();
+    const [sort,setSort] = useState("");
 
     useEffect(() => { 
-        let paramURL = queryString.stringify(filters);
+        let paramURL = queryString.stringify(sort);
 
-        paramURL += (valueSearch ? (`&name_like=${valueSearch}`) : ""); 
+        paramURL += (valueSearch ? (`&name_like=${valueSearch}&_page=1`) : ""); 
         paramURL += (valueType ? (`&type=${valueType}`) : ""); 
-        paramURL += (valueByType ? (`&byType=${valueByType}`) : ""); 
-        paramURL += ((valueBrand == []) ? (`&brand=${valueBrand}`) : ""); 
+        paramURL += (valueByType.length !== 0 ? (`&byType=${valueByType}`) : ""); 
+        paramURL += (valueBrand.length !== 0 ? (`&brand=${valueBrand}`) : ""); 
         paramURL += (valueRate ? (`&ratings=${valueRate}`) : ""); 
         paramURL += (priceFrom ? (`&price_gte=${priceFrom}`) : ""); 
         paramURL += (priceTo ? (`&price_lte=${priceTo}`) : ""); 
 
-        async function fetchProduct(){
-            
+        async function fetchProduct(){            
             let URL = `http://localhost:3333/products?${paramURL}`;
-            console.log(URL);
             const response = await fetch(URL);
             const responseJSON = await response.json();
-            console.log({responseJSON});
 
             setProducts(responseJSON);
         } 
 
         fetchProduct();
-    },[filters,valueTitle,valueType,valueByType,valueBrand,valueRate,priceFrom,priceTo,valueSearch]);
+    },[sort,valueTitle,valueType,valueByType,valueBrand,valueRate,priceFrom,priceTo,valueSearch]);
    
     useEffect(() => {
         onHandleProducts(products);
     }, [products]);
 
+    const indexOfLastProduct = currentPage*productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indexOfFirstProduct,indexOfLastProduct);
+
     const handlePageChange = (value) => {
-        setFilters({
-            ...pagination,
-            _page : value
-        });
+        setcurrentPage(value);
     }
 
     const handleSort = (value) => {
-        setFilters({
-            ...filters,
+        setSort({
             _sort: "price",
             _order : value
         })
@@ -63,10 +56,11 @@ function Main(props) {
     return (
         <div className="main">
             <TopResult result = {products.length} onHandleSort={handleSort}/>
-            <Products products = {products}/>
-            <Pagination pagination={pagination} 
-                        totalProducts={products.length}
-                        onPageChange={handlePageChange}/>
+            <Products products = {currentProducts}/>
+            <Pagination currentPage = {currentPage}
+                        productsPerPage = {productsPerPage}
+                        totalProducts = {products.length}
+                        onPageChange = {handlePageChange}/>
         </div>
     );
 }
